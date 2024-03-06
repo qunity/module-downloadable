@@ -1,0 +1,12 @@
+{
+    "downloadable_link": {
+        "column": {
+            "is_online": true
+        }
+    },
+    "downloadable_link_purchased_item": {
+        "column": {
+            "is_online": true
+        }
+    }
+}
