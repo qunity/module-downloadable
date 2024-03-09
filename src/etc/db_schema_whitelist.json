@@ -1,12 +1,12 @@
 {
-    "downloadable_link": {
-        "column": {
-            "is_online": true
-        }
+  "qunity_downloadable_link": {
+    "column": {
+      "link_id": true,
+      "is_online": true
     },
-    "downloadable_link_purchased_item": {
-        "column": {
-            "is_online": true
-        }
+    "constraint": {
+      "QUNITY_DOWNLOADABLE_LINK_LINK_ID_DOWNLOADABLE_LINK_LINK_ID": true,
+      "PRIMARY": true
     }
+  }
 }

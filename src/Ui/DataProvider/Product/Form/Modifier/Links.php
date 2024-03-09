@@ -8,13 +8,17 @@ use Magento\Catalog\Model\Locator\LocatorInterface;
 use Magento\Catalog\Model\Product;
 use Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\AbstractModifier;
 use Magento\Config\Model\Config\Source\Yesno;
+use Magento\Downloadable\Api\Data\LinkExtension;
 use Magento\Downloadable\Api\Data\LinkInterface;
 use Magento\Downloadable\Model\Product\Type;
 use Magento\Framework\Stdlib\ArrayManager;
 use Magento\Ui\Component\Form;
+use Qunity\Downloadable\Model\Data\Link;
 
 class Links extends AbstractModifier
 {
+    private const IS_ONLINE_KEY = 'extension_attribute_qunity_is_online';
+
     /**
      * @param LocatorInterface $locator
      * @param ArrayManager $arrayManager
@@ -58,6 +62,9 @@ class Links extends AbstractModifier
     {
         /** @var Product $product */
         $product = $this->locator->getProduct();
+        if ($product->getTypeId() != Type::TYPE_DOWNLOADABLE) {
+            return;
+        }
 
         /** @var Type $productType */
         $productType = $product->getTypeInstance();
@@ -67,10 +74,23 @@ class Links extends AbstractModifier
 
         foreach ($data[$product->getId()]['downloadable']['link'] as &$link) {
             $linkId = $link['link_id'];
-
-            if (isset($productLinks[$linkId])) {
-                $link['is_online'] = $productLinks[$linkId]->getIsOnline();
+            if (!isset($productLinks[$linkId])) {
+                continue;
             }
+
+            /** @var LinkExtension|null $extension */
+            $extension = $productLinks[$linkId]->getExtensionAttributes();
+            if (!$extension) {
+                continue;
+            }
+
+            /** @var Link|null $qunity */
+            $qunity = $extension->getQunity();
+            if (!$qunity) {
+                continue;
+            }
+
+            $link[self::IS_ONLINE_KEY] = (int) $qunity->getIsOnline();
         }
     }
 
@@ -89,12 +109,12 @@ class Links extends AbstractModifier
             'record/children',
         ]);
 
-        $record['is_online']['arguments']['data']['config'] = [
+        $record[self::IS_ONLINE_KEY]['arguments']['data']['config'] = [
             'label' => __('Online'),
             'formElement' => Form\Element\Select::NAME,
             'componentType' => Form\Field::NAME,
             'dataType' => Form\Element\DataType\Number::NAME,
-            'dataScope' => 'is_online',
+            'dataScope' => self::IS_ONLINE_KEY,
             'sortOrder' => 51,
             'options' => $this->yesno->toOptionArray(),
         ];

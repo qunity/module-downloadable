@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\Downloadable\Api\Data\LinkInterface">
+        <attribute code="qunity" type="Qunity\Downloadable\Api\Data\LinkInterface">
+            <join reference_table="qunity_downloadable_link" join_on_field="link_id" reference_field="link_id">
+                <field column="link_id">link_id</field>
+                <field column="is_online">is_online</field>
+            </join>
+        </attribute>
+    </extension_attributes>
+</config>
