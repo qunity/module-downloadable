@@ -10,14 +10,14 @@ interface LinkInterface
     public const IS_ONLINE = 'is_online';
 
     /**
-     * Get product link id
+     * Get product Link ID
      *
      * @return int|null
      */
     public function getLinkId(): ?int;
 
     /**
-     * Set product link id
+     * Set product Link ID
      *
      * @param int $linkId
      * @return $this
@@ -25,14 +25,14 @@ interface LinkInterface
     public function setLinkId(int $linkId): self;
 
     /**
-     * Get link online flag
+     * Get link Online flag
      *
      * @return bool|null
      */
     public function getIsOnline(): ?bool;
 
     /**
-     * Set link online flag
+     * Set link Online flag
      *
      * @param bool $isOnline
      * @return $this

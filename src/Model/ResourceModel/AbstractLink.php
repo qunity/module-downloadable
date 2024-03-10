@@ -6,7 +6,6 @@ namespace Qunity\Downloadable\Model\ResourceModel;
 
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\DB\Adapter\AdapterInterface;
-use Qunity\Downloadable\Api\Data\LinkInterfaceFactory;
 
 abstract class AbstractLink
 {
@@ -14,11 +13,9 @@ abstract class AbstractLink
 
     /**
      * @param ResourceConnection $connection
-     * @param LinkInterfaceFactory $linkFactory
      */
     public function __construct(
-        private readonly ResourceConnection $connection,
-        private readonly LinkInterfaceFactory $linkFactory
+        private readonly ResourceConnection $connection
     ) {
         // ...
     }
@@ -41,15 +38,5 @@ abstract class AbstractLink
     protected function getConnection(): AdapterInterface
     {
         return $this->connection->getConnection();
-    }
-
-    /**
-     * Get factory of link instance
-     *
-     * @return LinkInterfaceFactory
-     */
-    protected function getLinkFactory(): LinkInterfaceFactory
-    {
-        return $this->linkFactory;
     }
 }

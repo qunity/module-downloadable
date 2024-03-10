@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PluginInspection */
 
 declare(strict_types=1);
 
@@ -25,34 +25,34 @@ class LinkRepository
     }
 
     /**
-     * Save information about associate qunity to link
+     * Save information about associate Qunity extension to Link
      *
      * @param Target $subject
-     * @param int $result
+     * @param int $linkId
      * @param string $sku
      * @param LinkInterface $link
      *
      * @return int
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function afterSave(Target $subject, int $result, string $sku, LinkInterface $link): int
+    public function afterSave(Target $subject, int $linkId, string $sku, LinkInterface $link): int
     {
         /** @var LinkExtension|null $extension */
         $extension = $link->getExtensionAttributes();
         if (!$extension) {
-            return $result;
+            return $linkId;
         }
 
         /** @var Link|null $qunity */
         $qunity = $extension->getQunity();
         if (!$qunity) {
-            $this->deleteLink->execute($result);
+            $this->deleteLink->execute($linkId);
 
-            return $result;
+            return $linkId;
         }
 
-        $this->saveLink->execute($qunity->setLinkId($result));
+        $this->saveLink->execute($qunity->setLinkId($linkId));
 
-        return $result;
+        return $linkId;
     }
 }
