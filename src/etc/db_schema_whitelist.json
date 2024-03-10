@@ -2,7 +2,8 @@
   "qunity_downloadable_link": {
     "column": {
       "link_id": true,
-      "is_online": true
+      "is_online_link": true,
+      "is_online_sample": true
     },
     "constraint": {
       "QUNITY_DOWNLOADABLE_LINK_LINK_ID_DOWNLOADABLE_LINK_LINK_ID": true,

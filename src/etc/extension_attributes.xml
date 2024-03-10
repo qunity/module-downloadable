@@ -5,7 +5,8 @@
         <attribute code="qunity" type="Qunity\Downloadable\Api\Data\LinkInterface">
             <join reference_table="qunity_downloadable_link" join_on_field="link_id" reference_field="link_id">
                 <field column="link_id">link_id</field>
-                <field column="is_online">is_online</field>
+                <field column="is_online_link">is_online_link</field>
+                <field column="is_online_sample">is_online_sample</field>
             </join>
         </attribute>
     </extension_attributes>

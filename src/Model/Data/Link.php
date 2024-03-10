@@ -14,7 +14,8 @@ class Link extends DataObject implements LinkInterface
      */
     public function getLinkId(): ?int
     {
-        return $this->hasData(self::LINK_ID) ? (int) $this->getData(self::LINK_ID) : null;
+        return $this->hasData(self::LINK_ID)
+            ? (int) $this->getData(self::LINK_ID) : null;
     }
 
     /**
@@ -28,16 +29,34 @@ class Link extends DataObject implements LinkInterface
     /**
      * @inheritDoc
      */
-    public function getIsOnline(): ?bool
+    public function getIsOnlineLink(): ?bool
     {
-        return $this->hasData(self::IS_ONLINE) ? (bool) $this->getData(self::IS_ONLINE) : null;
+        return $this->hasData(self::IS_ONLINE_LINK)
+            ? (bool) $this->getData(self::IS_ONLINE_LINK) : null;
     }
 
     /**
      * @inheritDoc
      */
-    public function setIsOnline(bool $isOnline): LinkInterface
+    public function setIsOnlineLink(bool $isOnline): LinkInterface
     {
-        return $this->setData(self::IS_ONLINE, $isOnline);
+        return $this->setData(self::IS_ONLINE_LINK, $isOnline);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getIsOnlineSample(): ?bool
+    {
+        return $this->hasData(self::IS_ONLINE_SAMPLE)
+            ? (bool) $this->getData(self::IS_ONLINE_SAMPLE) : null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setIsOnlineSample(bool $isOnline): LinkInterface
+    {
+        return $this->setData(self::IS_ONLINE_SAMPLE, $isOnline);
     }
 }

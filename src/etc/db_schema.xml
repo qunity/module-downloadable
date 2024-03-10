@@ -3,8 +3,10 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
     <table name="qunity_downloadable_link" resource="default" engine="innodb" comment="Qunity Downloadable Link Table">
         <column xsi:type="int" name="link_id" unsigned="true" nullable="false" identity="true" comment="Link ID"/>
-        <column xsi:type="smallint" name="is_online" unsigned="true" nullable="false" identity="false" default="0"
-                comment="Online flag"/>
+        <column xsi:type="smallint" name="is_online_link" unsigned="true" nullable="false" identity="false" default="0"
+                comment="Link Online flag"/>
+        <column xsi:type="smallint" name="is_online_sample" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Sample Online flag"/>
         <constraint xsi:type="foreign" referenceId="QUNITY_DOWNLOADABLE_LINK_LINK_ID_DOWNLOADABLE_LINK_ID"
                     table="qunity_downloadable_link" column="link_id" referenceTable="downloadable_link"
                     referenceColumn="link_id" onDelete="CASCADE"/>

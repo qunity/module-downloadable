@@ -7,7 +7,8 @@ namespace Qunity\Downloadable\Api\Data;
 interface LinkInterface
 {
     public const LINK_ID = 'link_id';
-    public const IS_ONLINE = 'is_online';
+    public const IS_ONLINE_LINK = 'is_online_link';
+    public const IS_ONLINE_SAMPLE = 'is_online_sample';
 
     /**
      * Get product Link ID
@@ -29,7 +30,7 @@ interface LinkInterface
      *
      * @return bool|null
      */
-    public function getIsOnline(): ?bool;
+    public function getIsOnlineLink(): ?bool;
 
     /**
      * Set link Online flag
@@ -37,5 +38,20 @@ interface LinkInterface
      * @param bool $isOnline
      * @return $this
      */
-    public function setIsOnline(bool $isOnline): self;
+    public function setIsOnlineLink(bool $isOnline): self;
+
+    /**
+     * Get sample Online flag
+     *
+     * @return bool|null
+     */
+    public function getIsOnlineSample(): ?bool;
+
+    /**
+     * Set sample Online flag
+     *
+     * @param bool $isOnline
+     * @return $this
+     */
+    public function setIsOnlineSample(bool $isOnline): self;
 }

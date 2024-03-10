@@ -9,7 +9,7 @@ use Qunity\Downloadable\Api\Data\LinkInterface;
 class DeleteLink extends AbstractLink
 {
     /**
-     * Remove Link instance
+     * Remove link instance of downloadable product
      *
      * @param int $linkId
      * @return void

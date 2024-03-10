@@ -9,7 +9,7 @@ use Qunity\Downloadable\Api\Data\LinkInterface;
 class SaveLink extends AbstractLink
 {
     /**
-     * Save Link instance
+     * Save link instance of downloadable product
      *
      * @param LinkInterface $link
      * @return void
@@ -20,9 +20,13 @@ class SaveLink extends AbstractLink
             $this->getTableName(),
             [
                 LinkInterface::LINK_ID => $link->getLinkId(),
-                LinkInterface::IS_ONLINE => $link->getIsOnline(),
+                LinkInterface::IS_ONLINE_LINK => $link->getIsOnlineLink(),
+                LinkInterface::IS_ONLINE_SAMPLE => $link->getIsOnlineSample(),
             ],
-            [LinkInterface::IS_ONLINE]
+            [
+                LinkInterface::IS_ONLINE_LINK,
+                LinkInterface::IS_ONLINE_SAMPLE,
+            ]
         );
     }
 }

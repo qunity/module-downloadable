@@ -1,4 +1,9 @@
-<?php /** @noinspection PluginInspection */
+<?php
+
+/**
+ * @noinspection PluginInspection
+ * @noinspection PhpUnusedParameterInspection
+ */
 
 declare(strict_types=1);
 
