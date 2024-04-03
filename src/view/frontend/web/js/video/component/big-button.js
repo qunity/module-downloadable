@@ -80,8 +80,8 @@ define([
       const play = this._getSubElement('play'),
         pause = this._getSubElement('pause');
 
-      component.updateStatusSubElement(play, paused);
-      component.updateStatusSubElement(pause, !paused);
+      component.updateStatusSubElement(play, !paused);
+      component.updateStatusSubElement(pause, paused);
     }
 
     /**
