@@ -57,6 +57,7 @@ define([
    * Component for VideoJs player
    */
   const component = {
+    contentSelector: 'h2',
 
     /**
      * Get component class
@@ -90,7 +91,7 @@ define([
      * @param {String} text
      */
     updateTitleElement: function (element, text) {
-      element.firstElementChild.textContent = text;
+      element.querySelector(this.contentSelector).textContent = text;
       element.setAttribute('aria-hidden', (!text).toString())
     }
   };
