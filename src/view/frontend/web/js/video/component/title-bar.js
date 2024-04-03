@@ -1,9 +1,9 @@
 define([
   'videojs',
-  'ko',
   'mage/template',
-  'text!Qunity_Downloadable/template/video/component/title-bar.html'
-], function (videojs, ko, template, tplTitleBar) {
+  'text!Qunity_Downloadable/template/video/component/title-bar.html',
+  'ko'
+], function (videojs, template, tplTitleBar, ko) {
   'use strict';
 
   /**
@@ -95,5 +95,5 @@ define([
     }
   };
 
-  return component
+  return component;
 });
