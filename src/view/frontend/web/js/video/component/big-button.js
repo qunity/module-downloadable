@@ -11,12 +11,6 @@ define([
   class BigButton extends videojs.getComponent('Component')
   {
     /**
-     * Selector string template for sub-button HTML element
-     * @type {string}
-     */
-    tplSubBtnSelector = 'button[data-action-type="{type}"]'
-
-    /**
      * Sub-buttons HTML element list
      * @type {{ play: HTMLElement, pause: HTMLElement }}
      */
@@ -62,9 +56,7 @@ define([
         return this.subBtnElements[type];
       }
 
-      const selector = this.tplSubBtnSelector.replace('{type}', type);
-      this.subBtnElements[type] = this.el().querySelector(selector);
-
+      this.subBtnElements[type] = component.searchSubBtnElement(this.el(), type);
       if (!this.subBtnElements[type]) {
         throw new Error(`Sub-button HTML element not found: ${type}`);
       }
@@ -93,6 +85,7 @@ define([
    * Component for VideoJs player
    */
   const component = {
+    tplSubBtnSelector: 'button[data-action-type="{type}"]',
 
     /**
      * Get component class
@@ -118,6 +111,22 @@ define([
       types.forEach(type => el.appendChild(this._createSubBtnElement(type)));
 
       return el;
+    },
+
+    /**
+     * Searching sub-button HTML element in another HTML element
+     * @public
+     *
+     * @param {HTMLElement} element
+     * @param {String} type
+     *
+     * @returns {HTMLElement|null}
+     */
+    searchSubBtnElement(element, type)
+    {
+      const selector = this.tplSubBtnSelector.replace('{type}', type);
+
+      return element.querySelector(selector);
     },
 
     /**
