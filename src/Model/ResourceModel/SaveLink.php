@@ -9,7 +9,7 @@ use Qunity\Downloadable\Api\Data\LinkInterface;
 class SaveLink extends AbstractLink
 {
     /**
-     * Save link instance of downloadable product
+     * Save link record of downloadable product
      *
      * @param LinkInterface $link
      * @return void

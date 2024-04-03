@@ -5,7 +5,6 @@ define(function () {
 
   return function (UploadTypeHandler) {
     return UploadTypeHandler.extend({
-
       defaults: {
         isOnline: 'extension_attribute_qunity_is_online'
       },
@@ -18,7 +17,7 @@ define(function () {
       changeTypeUpload: function (currentValue) {
         this._super();
         this.changeVisible('index=' + this.isOnline, currentValue === 'url');
-      },
+      }
     });
   };
 });
