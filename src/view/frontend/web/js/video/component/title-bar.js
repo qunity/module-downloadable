@@ -12,12 +12,6 @@ define([
   class TitleBar extends videojs.getComponent('Component')
   {
     /**
-     * Observable title text value
-     * @type {Object}
-     */
-    value = ko.observable('');
-
-    /**
      * Component constructor
      * @public
      *
@@ -27,6 +21,8 @@ define([
     constructor(player, options = {})
     {
       super(player, options);
+
+      this.value = ko.observable('');
       this.value.subscribe(this._updateTitle.bind(this));
     }
 

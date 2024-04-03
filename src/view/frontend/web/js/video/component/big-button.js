@@ -1,8 +1,9 @@
 define([
   'videojs',
   'mage/template',
-  'text!Qunity_Downloadable/template/video/component/big-button.html'
-], function (videojs, template, tplBigButton) {
+  'text!Qunity_Downloadable/template/video/component/big-button.html',
+  'ko'
+], function (videojs, template, tplBigButton, ko) {
   'use strict';
 
   /**
@@ -10,12 +11,6 @@ define([
    */
   class BigButton extends videojs.getComponent('Component')
   {
-    /**
-     * Sub-buttons HTML element list
-     * @type {Object}
-     */
-    subElements = {}
-
     /**
      * Component constructor
      * @public
@@ -26,7 +21,12 @@ define([
     constructor(player, options = {})
     {
       super(player, options);
+
+      this.subElements = {};
+      this.paused = ko.observable(null);
+
       this.on('click', this._onPlayPauseToggle.bind(this));
+      this.paused.subscribe(this._animateSubElements.bind(this));
     }
 
     /**
@@ -38,27 +38,6 @@ define([
     createEl()
     {
       return component.createElement(['play', 'pause']);
-    }
-
-    /**
-     * Get sub-button HTML element
-     * @private
-     *
-     * @param {String} type
-     * @returns {HTMLElement}
-     */
-    _getSubElement(type)
-    {
-      if (this.subElements[type]) {
-        return this.subElements[type];
-      }
-
-      this.subElements[type] = component.searchSubElement(this.el(), type);
-      if (!this.subElements[type]) {
-        throw new Error(`Sub-button HTML element not found: ${type}`);
-      }
-
-      return this.subElements[type];
     }
 
     /**
@@ -87,11 +66,43 @@ define([
       const isPaused = tech.paused();
       isPaused ? tech.play() : tech.pause();
 
+      this.paused(isPaused);
+    }
+
+    /**
+     * Animate sub-button HTML elements
+     * @private
+     *
+     * @param {Boolean} paused
+     */
+    _animateSubElements(paused)
+    {
       const play = this._getSubElement('play'),
         pause = this._getSubElement('pause');
 
-      component.updateStatusSubElement(play, !isPaused);
-      component.updateStatusSubElement(pause, !!isPaused);
+      component.updateStatusSubElement(play, paused);
+      component.updateStatusSubElement(pause, !paused);
+    }
+
+    /**
+     * Get sub-button HTML element
+     * @private
+     *
+     * @param {String} type
+     * @returns {HTMLElement}
+     */
+    _getSubElement(type)
+    {
+      if (this.subElements[type]) {
+        return this.subElements[type];
+      }
+
+      this.subElements[type] = component.searchSubElement(this.el(), type);
+      if (!this.subElements[type]) {
+        throw new Error(`Sub-button HTML element not found: ${type}`);
+      }
+
+      return this.subElements[type];
     }
   }
 
