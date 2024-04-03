@@ -41,7 +41,7 @@ define([
     }
 
     /**
-     * Process of toggle play/pause states
+     * Process event of toggle play/pause states
      * @private
      */
     _onPlayPauseToggle()
@@ -56,7 +56,7 @@ define([
     }
 
     /**
-     * Call process of toggle play/pause states for tech instance
+     * Call process of toggle play/pause states
      * @private
      *
      * @param {Object} tech
@@ -172,7 +172,7 @@ define([
     },
 
     /**
-     * Update sub-button HTML element visibility in another HTML element
+     * Update sub-button HTML element visibility
      * @public
      *
      * @param {HTMLElement} element
