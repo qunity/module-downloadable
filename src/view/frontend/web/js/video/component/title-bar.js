@@ -45,7 +45,7 @@ define([
      * Update title value in component
      * @private
      *
-     * @param text
+     * @param {String} text
      */
     _updateTitle(text)
     {
@@ -92,7 +92,7 @@ define([
      */
     updateTitleElement: function (element, text) {
       element.querySelector(this.contentSelector).textContent = text;
-      element.setAttribute('aria-hidden', (!text).toString())
+      element.setAttribute('aria-hidden', (!text).toString());
     }
   };
 
