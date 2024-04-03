@@ -70,7 +70,7 @@ define([
     },
 
     /**
-     * Get player component
+     * Get player static component
      * @public
      *
      * @param {String} name
