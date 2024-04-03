@@ -99,6 +99,10 @@ define([
    * Component for VideoJs player
    */
   const component = {
+    registeredSvgPaths: {
+      play: 'M16 10v28l22-14z',
+      pause: 'M12 38h8V10h-8v28zm16-28v28h8V10h-8z'
+    },
     tplSubElementSelector: 'button[data-action-type="{type}"]',
 
     /**
@@ -136,7 +140,7 @@ define([
      */
     createSubElement(type) {
       const tmp = document.createElement('div');
-      tmp.innerHTML = template(tplBigButton, { type: type });
+      tmp.innerHTML = template(tplBigButton, { type: type, svg: this.registeredSvgPaths[type] });
 
       return tmp.firstElementChild;
     },
