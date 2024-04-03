@@ -11,12 +11,13 @@ define(function () {
 
       /**
        * Change visibility for typeUrl/typeFile based on current value
+       * @public
        *
        * @param {String} currentValue
        */
       changeTypeUpload: function (currentValue) {
         this._super();
-        this.changeVisible('index=' + this.isOnline, currentValue === 'url');
+        this.changeVisible(`index=${this.isOnline}`, currentValue === 'url');
       }
     });
   };

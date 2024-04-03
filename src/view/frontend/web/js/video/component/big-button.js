@@ -70,7 +70,7 @@ define([
     }
 
     /**
-     * Animate sub-button HTML elements
+     * Animate sub-buttons HTML elements
      * @private
      *
      * @param {Boolean} paused
@@ -143,7 +143,7 @@ define([
     },
 
     /**
-     * Create sub-button HTML element by action type
+     * Create sub-button HTML element
      * @public
      *
      * @param {String} type
