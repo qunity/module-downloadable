@@ -27,7 +27,7 @@ define([
     constructor(player, options = {})
     {
       super(player, options);
-      this.value.subscribe(this.setValue.bind(this));
+      this.value.subscribe(this._updateTitle.bind(this));
     }
 
     /**
@@ -38,21 +38,18 @@ define([
      */
     createEl()
     {
-      return component.createElement();
+      return component.createElement('');
     }
 
     /**
-     * Set new title into HTML content of component
-     * @public
+     * Update title value in component
+     * @private
      *
      * @param text
-     * @returns {TitleBar}
      */
-    setValue(text)
+    _updateTitle(text)
     {
-      this.el().firstChild.textContent = text;
-
-      return this;
+      component.updateTitleElement(this.el(), text);
     }
   }
 
@@ -78,11 +75,23 @@ define([
      * @param {String} title
      * @returns {HTMLElement}
      */
-    createElement: function (title = '') {
+    createElement: function (title) {
       const tmp = document.createElement('div');
       tmp.innerHTML = template(tplTitleBar, { title: title });
 
       return tmp.firstElementChild;
+    },
+
+    /**
+     * Update title value in another HTML element
+     * @public
+     *
+     * @param {HTMLElement} element
+     * @param {String} text
+     */
+    updateTitleElement: function (element, text) {
+      element.firstElementChild.textContent = text;
+      element.setAttribute('aria-hidden', (!text).toString())
     }
   };
 

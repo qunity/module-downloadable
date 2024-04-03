@@ -12,12 +12,9 @@ define([
   {
     /**
      * Sub-buttons HTML element list
-     * @type {{ play: HTMLElement, pause: HTMLElement }}
+     * @type {Object}
      */
-    subBtnElements = {
-      play: undefined,
-      pause: undefined
-    }
+    subElements = {}
 
     /**
      * Component constructor
@@ -50,18 +47,18 @@ define([
      * @param {String} type
      * @returns {HTMLElement}
      */
-    _getSubBtnElement(type)
+    _getSubElement(type)
     {
-      if (this.subBtnElements[type]) {
-        return this.subBtnElements[type];
+      if (this.subElements[type]) {
+        return this.subElements[type];
       }
 
-      this.subBtnElements[type] = component.searchSubBtnElement(this.el(), type);
-      if (!this.subBtnElements[type]) {
+      this.subElements[type] = component.searchSubElement(this.el(), type);
+      if (!this.subElements[type]) {
         throw new Error(`Sub-button HTML element not found: ${type}`);
       }
 
-      return this.subBtnElements[type];
+      return this.subElements[type];
     }
 
     /**
@@ -88,11 +85,11 @@ define([
       const isPaused = tech.paused();
       isPaused ? tech.play() : tech.pause();
 
-      const play = this._getSubBtnElement('play'),
-        pause = this._getSubBtnElement('pause');
+      const play = this._getSubElement('play'),
+        pause = this._getSubElement('pause');
 
-      play.setAttribute('aria-hidden', (!isPaused).toString());
-      pause.setAttribute('aria-hidden', isPaused.toString());
+      component.updateStatusSubElement(play, !isPaused);
+      component.updateStatusSubElement(pause, !!isPaused);
     }
   }
 
@@ -123,7 +120,7 @@ define([
       const el = document.createElement('div');
       el.classList.add('vjs-big-button');
 
-      types.forEach(type => el.appendChild(this.createSubBtnElement(type)));
+      types.forEach(type => el.appendChild(this.createSubElement(type)));
 
       return el;
     },
@@ -135,7 +132,7 @@ define([
      * @param {String} type
      * @returns {HTMLElement}
      */
-    createSubBtnElement(type) {
+    createSubElement(type) {
       const tmp = document.createElement('div');
       tmp.innerHTML = template(tplBigButton, { type: type });
 
@@ -151,10 +148,21 @@ define([
      *
      * @returns {HTMLElement|null}
      */
-    searchSubBtnElement(element, type) {
+    searchSubElement(element, type) {
       const selector = this.tplSubBtnSelector.replace('{type}', type);
 
       return element.querySelector(selector);
+    },
+
+    /**
+     * Update sub-button HTML element visibility in another HTML element
+     * @public
+     *
+     * @param {HTMLElement} element
+     * @param {Boolean} status
+     */
+    updateStatusSubElement(element, status) {
+      element.setAttribute('aria-hidden', status.toString());
     }
   };
 
