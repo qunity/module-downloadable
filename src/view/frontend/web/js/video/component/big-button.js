@@ -151,8 +151,7 @@ define([
      *
      * @returns {HTMLElement|null}
      */
-    searchSubBtnElement(element, type)
-    {
+    searchSubBtnElement(element, type) {
       const selector = this.tplSubBtnSelector.replace('{type}', type);
 
       return element.querySelector(selector);
