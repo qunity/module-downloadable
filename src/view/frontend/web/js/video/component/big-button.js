@@ -79,6 +79,8 @@ define([
     /**
      * Call process of toggle play/pause states for tech instance
      * @private
+     *
+     * @param {Object} tech
      */
     _callPlayPauseToggle(tech)
     {
@@ -97,7 +99,7 @@ define([
    * Component for VideoJs player
    */
   const component = {
-    tplSubBtnSelector: 'button[data-action-type="{type}"]',
+    tplSubElementSelector: 'button[data-action-type="{type}"]',
 
     /**
      * Get component class
@@ -149,7 +151,7 @@ define([
      * @returns {HTMLElement|null}
      */
     searchSubElement(element, type) {
-      const selector = this.tplSubBtnSelector.replace('{type}', type);
+      const selector = this.tplSubElementSelector.replace('{type}', type);
 
       return element.querySelector(selector);
     },
