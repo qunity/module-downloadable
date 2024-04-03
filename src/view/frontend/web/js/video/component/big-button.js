@@ -58,13 +58,15 @@ define([
      */
     _getSubBtnElement(type)
     {
-      if (!this.subBtnElements.hasOwnProperty(type)) {
-        throw new Error(`Undefined sub-button HTML element in a component: ${type}`);
+      if (this.subBtnElements[type]) {
+        return this.subBtnElements[type];
       }
 
+      const selector = this.tplSubBtnSelector.replace('{type}', type);
+      this.subBtnElements[type] = this.el().querySelector(selector);
+
       if (!this.subBtnElements[type]) {
-        const selector = this.tplSubBtnSelector.replace('{type}', type);
-        this.subBtnElements[type] = this.el().querySelector(selector);
+        throw new Error(`Sub-button HTML element not found: ${type}`);
       }
 
       return this.subBtnElements[type];
