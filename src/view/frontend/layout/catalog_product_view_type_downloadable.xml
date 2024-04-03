@@ -2,8 +2,6 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
-        <css src="Qunity_Downloadable::css/lib/videojs/videojs.min.css"/>
-        <css src="Qunity_Downloadable::css/lib/videojs/skins/m2luma.css"/>
         <css src="Qunity_Downloadable::css/video.css"/>
     </head>
     <body>
