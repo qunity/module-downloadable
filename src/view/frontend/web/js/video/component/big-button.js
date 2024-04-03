@@ -70,14 +70,29 @@ define([
      */
     _onPlayPauseToggle()
     {
-      const tech = this.player().tech(), isPaused = tech.paused();
+      const player = this.player();
+      if (!player.isReady_) {
+        return;
+      }
+
+      const tech = player.tech(player.techName_);
+      this._callPlayPauseToggle(tech);
+    }
+
+    /**
+     * Call process of toggle play/pause states for tech instance
+     * @private
+     */
+    _callPlayPauseToggle(tech)
+    {
+      const isPaused = tech.paused();
       isPaused ? tech.play() : tech.pause();
 
       const play = this._getSubBtnElement('play'),
         pause = this._getSubBtnElement('pause');
 
-      play.setAttribute('aria-hidden', isPaused.toString());
-      pause.setAttribute('aria-hidden', (!isPaused).toString());
+      play.setAttribute('aria-hidden', (!isPaused).toString());
+      pause.setAttribute('aria-hidden', isPaused.toString());
     }
   }
 
@@ -108,9 +123,23 @@ define([
       const el = document.createElement('div');
       el.classList.add('vjs-big-button');
 
-      types.forEach(type => el.appendChild(this._createSubBtnElement(type)));
+      types.forEach(type => el.appendChild(this.createSubBtnElement(type)));
 
       return el;
+    },
+
+    /**
+     * Create sub-button HTML element by action type
+     * @public
+     *
+     * @param {String} type
+     * @returns {HTMLElement}
+     */
+    createSubBtnElement(type) {
+      const tmp = document.createElement('div');
+      tmp.innerHTML = template(tplBigButton, { type: type });
+
+      return tmp.firstElementChild;
     },
 
     /**
@@ -127,20 +156,6 @@ define([
       const selector = this.tplSubBtnSelector.replace('{type}', type);
 
       return element.querySelector(selector);
-    },
-
-    /**
-     * Create sub-button HTML element by action type
-     * @private
-     *
-     * @param {String} type
-     * @returns {HTMLElement}
-     */
-    _createSubBtnElement(type) {
-      const tmp = document.createElement('div');
-      tmp.innerHTML = template(tplBigButton, { type: type });
-
-      return tmp.firstElementChild;
     }
   };
 
