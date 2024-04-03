@@ -13,7 +13,7 @@ use Qunity\Downloadable\Model\Data\Link;
 class Links extends BaseLinks
 {
     /**
-     * Checking whether the link have Online flag
+     * Checking whether Link have Online flag
      *
      * @param MagentoLinkInterface $link
      * @return bool
@@ -24,7 +24,7 @@ class Links extends BaseLinks
     }
 
     /**
-     * Checking whether the link sample have Online flag
+     * Checking whether Link sample have Online flag
      *
      * @param MagentoLinkInterface $link
      * @return bool
