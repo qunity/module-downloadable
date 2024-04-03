@@ -1,0 +1,83 @@
+<?php
+/**
+ * @var Qunity\Downloadable\Block\Catalog\Product\Links $block
+ * @var Magento\Framework\Escaper $escaper
+ */
+?>
+<?php if ($block->getProduct()->isSaleable() && $block->hasLinks()): ?>
+    <?php $links = $block->getLinks(); ?>
+    <?php $linksLength = 0; ?>
+    <?php $isRequired = $block->getLinkSelectionRequired(); ?>
+    <?php $linksPurchasedSeparately = $block->getLinksPurchasedSeparately(); ?>
+    <legend class="legend links-title">
+        <span><?= $escaper->escapeHtml($block->getLinksTitle()) ?></span>
+    </legend>
+    <br>
+    <div class="field downloads<?= $isRequired ? ' required' : '' ?>
+         <?= !$linksPurchasedSeparately ? ' downloads-no-separately' : '' ?>">
+        <label class="label">
+            <span><?= $escaper->escapeHtml($block->getLinksTitle()) ?></span>
+        </label>
+        <div class="control" id="downloadable-links-list"
+             data-mage-init='{ "downloadable": {
+                 "linkElement": "input:checkbox[value]",
+                 "allElements": "#links_all",
+                 "config": <?= $escaper->escapeHtmlAttr($block->getJsonConfig()) ?>
+             }}' data-container-for="downloadable-links">
+            <?php /** @var Magento\Downloadable\Api\Data\LinkInterface $link */ ?>
+            <?php foreach ($links as $link): ?>
+                <?php $linksLength++; ?>
+                <div class="field choice" data-role="link">
+                    <?php if ($linksPurchasedSeparately): ?>
+                        <input type="checkbox"
+                            <?php if ($isRequired): ?>
+                                data-validate="{ 'validate-one-checkbox-required-by-name':
+                                    'downloadable-links-list' }"
+                            <?php endif; ?>
+                               name="links[]"
+                               id="links_<?= $escaper->escapeHtmlAttr($link->getId()) ?>"
+                               value="<?= $escaper->escapeHtmlAttr($link->getId()) ?>"
+                            <?= $escaper->escapeHtml($block->getLinkCheckedValue($link)) ?>/>
+                    <?php endif; ?>
+                    <label class="label" for="links_<?= $escaper->escapeHtmlAttr($link->getId()) ?>">
+                        <span><?= $escaper->escapeHtml($link->getTitle()) ?></span>
+                        <?php if (!$block->isOnlineLink($link) && !$block->isOnlineSample($link)): ?>
+                            <?php if ($link->getSampleFile() || $link->getSampleUrl()): ?>
+                                <a class="sample link"
+                                   href="<?= $escaper->escapeUrl($block->getLinkSampleUrl($link)) ?>"
+                                    <?= $block->getIsOpenInNewWindow() ? 'target="_blank"' : '' ?>>
+                                    <?= $escaper->escapeHtml(__('sample')) ?>
+                                </a>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <?php if ($linksPurchasedSeparately): ?>
+                            <?= /* @noEscape */ $block->getLinkPrice($link) ?>
+                        <?php endif; ?>
+                    </label>
+                    <?php if ($block->isOnlineSample($link)): ?>
+                        <!-- TODO: добавить условие на отображение купленных продуктов -->
+                        <video id="youtube-video-<?= $escaper->escapeHtmlAttr($link->getId()) ?>"
+                               class="video-js vjs-m2luma-skin"
+                               data-mage-init='{ "youtube": {
+                                   "src": "<?= $escaper->escapeUrl($link->getSampleUrl()) ?>"
+                               } }'></video>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+            <?php if ($linksPurchasedSeparately && $linksLength > 1): ?>
+                <div class="field choice downloads-all">
+                    <input type="checkbox"
+                           data-notchecked="<?= $escaper->escapeHtmlAttr(__('Select all')) ?>"
+                           data-checked="<?= $escaper->escapeHtmlAttr(__('Unselect all')) ?>"
+                           id="links_all"/>
+                    <label class="label" for="links_all">
+                        <span><?= $escaper->escapeHtml(__('Select all')) ?></span>
+                    </label>
+                </div>
+            <?php endif; ?>
+        </div>
+        <?php if ($isRequired): ?>
+            <span id="links-advice-container"></span>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
