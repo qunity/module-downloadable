@@ -4,6 +4,7 @@
     <module name="Qunity_Downloadable">
         <sequence>
             <module name="Magento_Downloadable"/>
+            <module name="Qunity_Video"/>
         </sequence>
     </module>
 </config>
