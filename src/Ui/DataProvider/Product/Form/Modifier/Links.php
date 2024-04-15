@@ -102,13 +102,13 @@ class Links extends AbstractModifier
     private function addOnlineFlagMeta(array &$meta): void
     {
         $delimiter = ArrayManager::DEFAULT_PATH_DELIMITER;
-        $toPath = fn (array $parts): string => implode($delimiter, $parts);
+        $path = fn (array $parts): string => implode($delimiter, $parts);
 
-        $path = $toPath([
-            $toPath(['downloadable', 'children']),
-            $toPath(['container_links', 'children']),
-            $toPath(['link', 'children']),
-            $toPath(['record', 'children']),
+        $path = $path([
+            $path(['downloadable', 'children']),
+            $path(['container_links', 'children']),
+            $path(['link', 'children']),
+            $path(['record', 'children']),
         ]);
 
         $containerFile['children'] = [
