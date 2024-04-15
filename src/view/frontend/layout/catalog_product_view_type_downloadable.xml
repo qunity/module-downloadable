@@ -1,12 +1,10 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <head>
-        <css src="Qunity_Downloadable::css/video.css"/>
-    </head>
     <body>
         <referenceBlock class="Qunity\Downloadable\Block\Catalog\Product\Links"
                         name="product.info.downloadable.options"
                         template="Qunity_Downloadable::catalog/product/links.phtml"/>
+        <move element="video.player" destination="product.info.downloadable.options"/>
     </body>
 </page>
