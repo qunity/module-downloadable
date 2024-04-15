@@ -3,7 +3,6 @@
 /**
  * @noinspection PluginInspection
  * @noinspection PhpUnusedParameterInspection
- * @noinspection PhpClassCanBeReadonlyInspection
  */
 
 declare(strict_types=1);
