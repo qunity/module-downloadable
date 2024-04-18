@@ -8,7 +8,6 @@ use Magento\Downloadable\Api\Data\LinkInterface;
 use Qunity\Video\Api\VideoPlayer\Data\ConfigInterface;
 use Qunity\Video\Block\VideoPlayer;
 
-const PRODUCT_ID = 'product_id', LINK_ID = 'link_id';
 ?>
 <?php if ($block->getProduct()->isSaleable() && $block->hasLinks()): ?>
     <?php $productId = $block->getProduct()->getId(); ?>
@@ -67,7 +66,7 @@ const PRODUCT_ID = 'product_id', LINK_ID = 'link_id';
                             $videoPlayer = $block->getChildBlock('player');
                             echo $videoPlayer->update([
                                 ConfigInterface::VIDEO_SRC => $link->getSampleUrl(),
-                                PRODUCT_ID => $productId, LINK_ID => $link->getId(),
+                                'product_id' => $productId, 'link_id' => $link->getId(),
                             ])->toHtml(); ?>
                     <?php endif; ?>
                 </div>
