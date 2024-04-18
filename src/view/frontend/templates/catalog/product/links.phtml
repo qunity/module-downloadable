@@ -3,8 +3,14 @@
  * @var Qunity\Downloadable\Block\Catalog\Product\Links $block
  * @var Magento\Framework\Escaper $escaper
  */
+
+use Magento\Downloadable\Api\Data\LinkInterface;
+use Qunity\Video\Api\VideoPlayer\Data\ConfigInterface;
+use Qunity\Video\Block\VideoPlayer;
+
 ?>
 <?php if ($block->getProduct()->isSaleable() && $block->hasLinks()): ?>
+    <?php $productId = $block->getProduct()->getId(); ?>
     <?php $links = $block->getLinks(); ?>
     <?php $linksLength = 0; ?>
     <?php $isRequired = $block->getLinkSelectionRequired(); ?>
@@ -24,7 +30,7 @@
                  "allElements": "#links_all",
                  "config": <?= $escaper->escapeHtmlAttr($block->getJsonConfig()) ?>
              }}' data-container-for="downloadable-links">
-            <?php /** @var Magento\Downloadable\Api\Data\LinkInterface $link */ ?>
+            <?php /** @var LinkInterface $link */ ?>
             <?php foreach ($links as $link): ?>
                 <?php $linksLength++; ?>
                 <div class="field choice" data-role="link">
@@ -56,9 +62,14 @@
                     </label>
                     <?php if ($block->isOnlineSample($link)): ?>
                         <!-- TODO: добавить условие на отображение купленных продуктов -->
-                        <?php /** @var Qunity\Video\Block\VideoPlayer $videoPlayer */
-                            $videoPlayer = $block->getChildBlock('player');
-                            echo $videoPlayer->generateVideoId()->setVideoSrc($link->getSampleUrl())->toHtml(); ?>
+                        <?php /** @var VideoPlayer $videoPlayer */
+                            $videoPlayer = $block->getChildBlock('player')->addData([
+                                VideoPlayer::PRODUCT_ID => $productId,
+                                VideoPlayer::LINK_ID => $link->getId(),
+                            ]);
+                            echo $videoPlayer->update([
+                                ConfigInterface::VIDEO_SRC => $link->getSampleUrl(),
+                            ])->toHtml(); ?>
                     <?php endif; ?>
                 </div>
             <?php endforeach; ?>
