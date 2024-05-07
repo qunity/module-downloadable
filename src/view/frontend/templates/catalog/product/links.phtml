@@ -1,14 +1,11 @@
 <?php
-
 /**
  * @var Qunity\Downloadable\Block\Catalog\Product\Links $block
  * @var Magento\Framework\Escaper $escaper
  */
-
 use Magento\Downloadable\Api\Data\LinkInterface;
 use Qunity\Video\Api\Data\VideoPlayer\ConfigInterface;
 use Qunity\Video\Block\VideoPlayer;
-
 ?>
 <?php if ($block->getProduct()->isSaleable() && $block->hasLinks()): ?>
     <?php $productId = $block->getProduct()->getId(); ?>
