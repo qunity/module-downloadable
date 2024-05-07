@@ -5,7 +5,7 @@
  */
 
 use Magento\Downloadable\Api\Data\LinkInterface;
-use Qunity\Video\Api\VideoPlayer\Data\ConfigInterface;
+use Qunity\Video\Api\Data\VideoPlayer\ConfigInterface;
 use Qunity\Video\Block\VideoPlayer;
 
 ?>
@@ -65,7 +65,7 @@ use Qunity\Video\Block\VideoPlayer;
                         <?php /** @var VideoPlayer $videoPlayer */
                             $videoPlayer = $block->getChildBlock('player');
                             echo $videoPlayer->update([
-                                ConfigInterface::VIDEO_SRC => $link->getSampleUrl(),
+                                ConfigInterface::LINK_URL => $link->getSampleUrl(),
                                 'product_id' => $productId, 'link_id' => $link->getId(),
                             ])->toHtml(); ?>
                     <?php endif; ?>
