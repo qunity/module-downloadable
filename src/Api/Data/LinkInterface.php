@@ -11,14 +11,14 @@ interface LinkInterface
     public const IS_ONLINE_SAMPLE = 'is_online_sample';
 
     /**
-     * Get product Link ID
+     * Get product link ID
      *
      * @return int|null
      */
     public function getLinkId(): ?int;
 
     /**
-     * Set product Link ID
+     * Set product link ID
      *
      * @param int $linkId
      * @return $this

@@ -61,7 +61,7 @@ use Qunity\Video\Block\VideoPlayer;
                         <?php endif; ?>
                     </label>
                     <?php if ($block->isOnlineSample($link)): ?>
-                        <!-- TODO: добавить условие на отображение купленных продуктов -->
+                        <!-- TODO: add a condition for displaying purchased products -->
                         <?php /** @var VideoPlayer $videoPlayer */
                             $videoPlayer = $block->getChildBlock('player');
                             echo $videoPlayer->update([

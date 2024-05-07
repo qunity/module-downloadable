@@ -2,8 +2,8 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceBlock class="Qunity\Downloadable\Block\Catalog\Product\Links"
-                        name="product.info.downloadable.options"
+        <referenceBlock name="product.info.downloadable.options"
+                        class="Qunity\Downloadable\Block\Catalog\Product\Links"
                         template="Qunity_Downloadable::catalog/product/links.phtml"/>
         <move element="video.player" destination="product.info.downloadable.options"/>
     </body>
