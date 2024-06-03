@@ -3,9 +3,6 @@
  * @var Qunity\Downloadable\Block\Catalog\Product\Links $block
  * @var Magento\Framework\Escaper $escaper
  */
-use Magento\Downloadable\Api\Data\LinkInterface;
-use Qunity\Video\Api\Data\VideoPlayer\ConfigInterface;
-use Qunity\Video\Block\VideoPlayer;
 ?>
 <?php if ($block->getProduct()->isSaleable() && $block->hasLinks()): ?>
     <?php $productId = $block->getProduct()->getId(); ?>
@@ -28,7 +25,6 @@ use Qunity\Video\Block\VideoPlayer;
                  "allElements": "#links_all",
                  "config": <?= $escaper->escapeHtmlAttr($block->getJsonConfig()) ?>
              }}' data-container-for="downloadable-links">
-            <?php /** @var LinkInterface $link */ ?>
             <?php foreach ($links as $link): ?>
                 <?php $linksLength++; ?>
                 <div class="field choice" data-role="link">
@@ -60,12 +56,7 @@ use Qunity\Video\Block\VideoPlayer;
                     </label>
                     <?php if ($block->isOnlineSample($link)): ?>
                         <!-- TODO: add a condition for displaying purchased products -->
-                        <?php /** @var VideoPlayer $videoPlayer */
-                            $videoPlayer = $block->getChildBlock('player');
-                            echo $videoPlayer->update([
-                                ConfigInterface::LINK_URL => $link->getSampleUrl(),
-                                'product_id' => $productId, 'link_id' => $link->getId(),
-                            ])->toHtml(); ?>
+                        <?= /* @noEscape */ $block->getVideoPlayerBlock($link)?->toHtml() ?>
                     <?php endif; ?>
                 </div>
             <?php endforeach; ?>
