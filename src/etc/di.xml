@@ -3,7 +3,14 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Qunity\Downloadable\Api\Data\LinkInterface" type="Qunity\Downloadable\Model\Data\Link"/>
     <type name="Magento\Downloadable\Api\LinkRepositoryInterface">
-        <plugin name="Qunity_Downloadable::link_repository"
-                type="Qunity\Downloadable\Plugin\Magento\Downloadable\Model\LinkRepository"/>
+        <plugin name="Qunity_Downloadable::link_repository.clear_url_links"
+                type="Qunity\Downloadable\Plugin\Magento\Downloadable\Model\LinkRepository\ClearUrlLinks"
+                sortOrder="100"/>
+        <plugin name="Qunity_Downloadable::link_repository.validate_url_links"
+                type="Qunity\Downloadable\Plugin\Magento\Downloadable\Model\LinkRepository\ValidateUrlLinks"
+                sortOrder="200"/>
+        <plugin name="Qunity_Downloadable::link_repository.save_extension_attributes"
+                type="Qunity\Downloadable\Plugin\Magento\Downloadable\Model\LinkRepository\SaveExtensionAttributes"
+                sortOrder="300"/>
     </type>
 </config>
