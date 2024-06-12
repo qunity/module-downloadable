@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Qunity\Downloadable\Model\ResourceModel;
 
 use Qunity\Downloadable\Api\Data\LinkInterface;
+use Qunity\Downloadable\Api\Service\DeleteLinkInterface;
 
-class DeleteLink extends AbstractLink
+class DeleteLink extends AbstractLink implements DeleteLinkInterface
 {
     /**
-     * Remove link record of downloadable product
-     *
-     * @param int $linkId
-     * @return void
+     * @inheritDoc
      */
     public function execute(int $linkId): void
     {

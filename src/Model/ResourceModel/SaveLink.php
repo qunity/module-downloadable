@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Qunity\Downloadable\Model\ResourceModel;
 
 use Qunity\Downloadable\Api\Data\LinkInterface;
+use Qunity\Downloadable\Api\Service\SaveLinkInterface;
 
-class SaveLink extends AbstractLink
+class SaveLink extends AbstractLink implements SaveLinkInterface
 {
     /**
-     * Save link record of downloadable product
-     *
-     * @param LinkInterface $link
-     * @return void
+     * @inheritDoc
      */
     public function execute(LinkInterface $link): void
     {
