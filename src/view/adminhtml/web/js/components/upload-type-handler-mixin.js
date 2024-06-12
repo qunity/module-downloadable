@@ -6,7 +6,8 @@ define(function () {
   return function (UploadTypeHandler) {
     return UploadTypeHandler.extend({
       defaults: {
-        isOnline: 'extension_attribute_qunity_is_online'
+        isOnline: 'extension_attribute_qunity_is_online',
+        filterComponents: 'ns = ${ $.ns }, parentName = ${ $.parentName }'
       },
 
       /**
@@ -17,7 +18,10 @@ define(function () {
        */
       changeTypeUpload: function (currentValue) {
         this._super();
-        this.changeVisible(`index=${this.isOnline}`, currentValue === 'url');
+
+        /** @var {String} componentIsOnline */
+        const componentIsOnline = `${this.filterComponents}, index=${this.isOnline}`;
+        this.changeVisible(componentIsOnline, currentValue === 'url');
       }
     });
   };

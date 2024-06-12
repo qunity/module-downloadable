@@ -1,7 +1,6 @@
 <?php
 
 /**
- * @noinspection PhpUnused
  * @noinspection PluginInspection
  * @noinspection PhpUnusedParameterInspection
  */

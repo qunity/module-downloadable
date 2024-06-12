@@ -18,6 +18,7 @@ class Links extends AbstractModifier
 {
     private const IS_ONLINE_LINK_KEY = 'extension_attribute_qunity_is_online_link';
     private const IS_ONLINE_SAMPLE_KEY = 'extension_attribute_qunity_is_online_sample';
+    private const INPUT_VIDEO_URL_ELEMENT_COMPONENT = 'Qunity_Downloadable/js/form/element/input-video-url';
 
     /**
      * @param LocatorInterface $locator
@@ -116,12 +117,28 @@ class Links extends AbstractModifier
             'type' => ['arguments' => ['data' => ['config' => [
                 'isOnline' => self::IS_ONLINE_LINK_KEY,
             ]]]],
+            'link_url' => ['arguments' => ['data' => ['config' => [
+                'component' => self::INPUT_VIDEO_URL_ELEMENT_COMPONENT,
+                'videoValidation' => [
+                    'validate-youtube-url' => [self::IS_ONLINE_LINK_KEY => '1'],
+                    'validate-youtube-video-metadata' => [self::IS_ONLINE_LINK_KEY => '1'],
+                ],
+                'validation' => ['no-whitespace' => true],
+            ]]]],
         ];
 
         $containerSample['children'] = [
             self::IS_ONLINE_SAMPLE_KEY => $this->getOnlineFlag(self::IS_ONLINE_SAMPLE_KEY),
             'sample_type' => ['arguments' => ['data' => ['config' => [
                 'isOnline' => self::IS_ONLINE_SAMPLE_KEY,
+            ]]]],
+            'sample_url' => ['arguments' => ['data' => ['config' => [
+                'component' => self::INPUT_VIDEO_URL_ELEMENT_COMPONENT,
+                'videoValidation' => [
+                    'validate-youtube-url' => [self::IS_ONLINE_SAMPLE_KEY => '1'],
+                    'validate-youtube-video-metadata' => [self::IS_ONLINE_SAMPLE_KEY => '1'],
+                ],
+                'validation' => ['no-whitespace' => true],
             ]]]],
         ];
 
