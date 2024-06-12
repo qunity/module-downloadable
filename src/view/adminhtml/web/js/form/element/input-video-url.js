@@ -31,8 +31,8 @@ define([
      * @return {uiComponent}
      */
     initSubscriber: function () {
-      this._processVideoValidation((uiComponent, validationName, verifyValue) =>
-        uiComponent.value.subscribe(this._changeDependentValue.bind(this, validationName, verifyValue)));
+      this._processVideoValidation(uiComponent =>
+        uiComponent.value.subscribe(this.validate.bind(this)));
 
       return this;
     },
@@ -63,19 +63,6 @@ define([
 
           uiRegistry.get(`${this.filterComponents}, index=${componentIndex}`, uiComponent =>
             callback(uiComponent, validationName, verifyValue))));
-    },
-
-    /**
-     * Change dependent value for video URL validation
-     * @private
-     *
-     * @param {String} validationName
-     * @param {*} verifyValue
-     * @param {*} checkValue
-     */
-    _changeDependentValue: function (validationName, verifyValue, checkValue) {
-      this._changeValidation(validationName, verifyValue, checkValue);
-      this.validate();
     },
 
     /**
