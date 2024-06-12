@@ -6,13 +6,13 @@ namespace Qunity\Downloadable\Block\Catalog\Product;
 
 use Magento\Downloadable\Api\Data\LinkExtension;
 use Magento\Downloadable\Api\Data\LinkInterface as MagentoLinkInterface;
-use Magento\Downloadable\Block\Catalog\Product\Links as BaseLinks;
+use Magento\Downloadable\Block\Catalog\Product\Links as BaseBlockLinks;
 use Qunity\Downloadable\Api\Data\LinkInterface as QunityLinkInterface;
 use Qunity\Downloadable\Model\Data\Link;
 use Qunity\Video\Api\Data\VideoPlayer\ConfigInterface;
 use Qunity\Video\Block\VideoPlayer;
 
-class Links extends BaseLinks
+class Links extends BaseBlockLinks
 {
     /**
      * Get child Video Player block and configure it by link info
