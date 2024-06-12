@@ -15,6 +15,12 @@ use Qunity\Video\Block\VideoPlayer;
 class Links extends BaseBlockLinks
 {
     /**
+     * TODO: описание...
+     * @var VideoPlayer|null
+     */
+    private ?VideoPlayer $videoPlayerBlock;
+
+    /**
      * Get child Video Player block and configure it by link info
      *
      * @param MagentoLinkInterface $link
@@ -22,14 +28,13 @@ class Links extends BaseBlockLinks
      */
     public function getVideoPlayerBlock(MagentoLinkInterface $link): ?VideoPlayer
     {
-        /** @var VideoPlayer $videoPlayer */
-        $videoPlayer = $this->getChildBlock('player');
-        if (empty($videoPlayer)) { // @phpstan-ignore-line
+        $videoPlayer = $this->getChildPlayerBlock();
+        if (empty($videoPlayer)) {
             return null;
         }
 
-        $data = [
-            ConfigInterface::LINK_URL => $link->getSampleUrl(),
+        $data = [ // TODO: вытащить в сервис, в какой-нибудь модуль, типо Qunity_Sales или Qunity_Customer
+            ConfigInterface::LINK_URL => $link->getSampleUrl(), // TODO: разделять по принципу "купил" / "не купил"
             'product_id' => $this->getProduct()->getId(),
             'link_id' => $link->getId(),
             'title' => $link->getTitle(),
@@ -58,6 +63,21 @@ class Links extends BaseBlockLinks
     public function isOnlineSample(MagentoLinkInterface $link): bool
     {
         return (bool) $this->getQunityLink($link)?->getIsOnlineSample();
+    }
+
+    /**
+     * TODO: описание...
+     *
+     * @return VideoPlayer|null
+     */
+    private function getChildPlayerBlock(): ?VideoPlayer
+    {
+        if (!isset($this->videoPlayerBlock)) {
+            $block = $this->getChildBlock('player');
+            $this->videoPlayerBlock = $block instanceof VideoPlayer ? $block : null;
+        }
+
+        return $this->videoPlayerBlock;
     }
 
     /**
