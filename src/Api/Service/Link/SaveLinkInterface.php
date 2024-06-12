@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Qunity\Downloadable\Api\Service;
+namespace Qunity\Downloadable\Api\Service\Link;
 
 use Qunity\Downloadable\Api\Data\LinkInterface;
 

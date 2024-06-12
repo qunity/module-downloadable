@@ -1,10 +1,6 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="Qunity\Downloadable\Api\Service\SaveLinkInterface"
-                type="Qunity\Downloadable\Model\ResourceModel\SaveLink"/>
-    <preference for="Qunity\Downloadable\Api\Service\DeleteLinkInterface"
-                type="Qunity\Downloadable\Model\ResourceModel\DeleteLink"/>
     <type name="Magento\Downloadable\Ui\DataProvider\Product\Form\Modifier\Composite">
         <arguments>
             <argument name="modifiers" xsi:type="array">

@@ -1,30 +1,31 @@
 <?php
 
 /**
+ * @noinspection PhpUnused
  * @noinspection PluginInspection
  * @noinspection PhpUnusedParameterInspection
  */
 
 declare(strict_types=1);
 
-namespace Qunity\Downloadable\Plugin\Magento\Downloadable\Model;
+namespace Qunity\Downloadable\Plugin\Magento\Downloadable\Model\LinkRepository;
 
 use Magento\Downloadable\Api\Data\LinkExtension;
 use Magento\Downloadable\Api\Data\LinkInterface;
 use Magento\Downloadable\Model\LinkRepository as Target;
+use Qunity\Downloadable\Api\Service\Link\DeleteLinkInterface;
+use Qunity\Downloadable\Api\Service\Link\SaveLinkInterface;
 use Qunity\Downloadable\Model\Data\Link;
-use Qunity\Downloadable\Model\ResourceModel\DeleteLink;
-use Qunity\Downloadable\Model\ResourceModel\SaveLink;
 
-class LinkRepository
+class SaveExtensionAttributes
 {
     /**
-     * @param SaveLink $saveLink
-     * @param DeleteLink $deleteLink
+     * @param SaveLinkInterface $saveLink
+     * @param DeleteLinkInterface $deleteLink
      */
     public function __construct(
-        private readonly SaveLink $saveLink,
-        private readonly DeleteLink $deleteLink
+        private readonly SaveLinkInterface $saveLink,
+        private readonly DeleteLinkInterface $deleteLink
     ) {
         // ...
     }
