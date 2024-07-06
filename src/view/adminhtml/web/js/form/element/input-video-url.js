@@ -39,6 +39,7 @@ define([
 
     /**
      * Validates itself by it is validation rules using validator object
+     * @public
      *
      * @returns {Object} Validate information
      */

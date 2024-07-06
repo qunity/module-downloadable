@@ -44,13 +44,13 @@ class SaveExtensionAttributes
     {
         /** @var LinkExtension|null $extension */
         $extension = $link->getExtensionAttributes();
-        if (!$extension) {
+        if (empty($extension)) {
             return $linkId;
         }
 
         /** @var Link|null $qunity */
         $qunity = $extension->getQunity();
-        if (!$qunity) {
+        if (empty($qunity)) {
             $this->deleteLink->execute($linkId);
 
             return $linkId;

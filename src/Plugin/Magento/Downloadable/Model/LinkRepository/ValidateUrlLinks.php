@@ -26,7 +26,7 @@ class ValidateUrlLinks
     }
 
     /**
-     * Validate URL if it is video link for downloadable product
+     * Validate URL if it's video link for downloadable product
      *
      * @param Target $subject
      * @param string $sku
@@ -41,36 +41,36 @@ class ValidateUrlLinks
     {
         /** @noinspection PhpUndefinedMethodInspection */
         $qunity = $link->getExtensionAttributes()?->getQunity();
-        if (!$qunity) {
+        if (empty($qunity)) {
             return [$sku, $link];
         }
 
         if ($qunity->getIsOnlineLink()) {
-            $this->getYoutubeMetadata($link->getLinkUrl());
+            $this->loadYoutubeMetadata($link->getLinkUrl());
         }
 
         if ($qunity->getIsOnlineSample()) {
-            $this->getYoutubeMetadata($link->getSampleUrl());
+            $this->loadYoutubeMetadata($link->getSampleUrl());
         }
 
         return [$sku, $link];
     }
 
     /**
-     * Get metadata for YouTube video
+     * Load metadata for YouTube video
      *
      * @param string $url
      * @return void
      *
      * @throws LocalizedException
      */
-    private function getYoutubeMetadata(string $url): void
+    private function loadYoutubeMetadata(string $url): void
     {
         try {
             $this->getMetadataByUrl->execute($url);
         } catch (LocalizedException) {
             /** @noinspection HtmlUnknownTarget */
-            $exceptionMessage = 'Failed to get video metadata from YouTube: <a href="%1" target="_blank">%1</a>';
+            $exceptionMessage = 'Failed to load video metadata from YouTube: <a href="%1" target="_blank">%1</a>';
 
             throw new LocalizedException(__($exceptionMessage, $url));
         }

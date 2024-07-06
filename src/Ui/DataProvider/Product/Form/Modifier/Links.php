@@ -79,13 +79,13 @@ class Links extends AbstractModifier
 
             /** @var LinkExtension|null $extension */
             $extension = $productLinks[$linkId]->getExtensionAttributes();
-            if (!$extension) {
+            if (empty($extension)) {
                 continue;
             }
 
             /** @var Link|null $qunity */
             $qunity = $extension->getQunity();
-            if (!$qunity) {
+            if (empty($qunity)) {
                 continue;
             }
 

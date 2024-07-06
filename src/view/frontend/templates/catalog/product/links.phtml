@@ -55,7 +55,6 @@
                         <?php endif; ?>
                     </label>
                     <?php if ($block->isOnlineSample($link)): ?>
-                        <!-- TODO: add a condition for displaying purchased products -->
                         <?= /* @noEscape */ $block->getVideoPlayerBlock($link)?->toHtml() ?>
                     <?php endif; ?>
                 </div>

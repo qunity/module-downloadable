@@ -14,8 +14,10 @@ use Qunity\Video\Block\VideoPlayer;
 
 class Links extends BaseBlockLinks
 {
+    private const PLAYER_BLOCK_ALIAS = 'player';
+
     /**
-     * TODO: описание...
+     * Video player block if it's added to child blocks
      * @var VideoPlayer|null
      */
     private ?VideoPlayer $videoPlayerBlock;
@@ -33,6 +35,7 @@ class Links extends BaseBlockLinks
             return null;
         }
 
+        // TODO: fix a condition for displaying purchased products
         $data = [ // TODO: вытащить в сервис, в какой-нибудь модуль, типо Qunity_Sales или Qunity_Customer
             ConfigInterface::LINK_URL => $link->getSampleUrl(), // TODO: разделять по принципу "купил" / "не купил"
             'product_id' => $this->getProduct()->getId(),
@@ -55,7 +58,7 @@ class Links extends BaseBlockLinks
     }
 
     /**
-     * Checking whether link sample have Online flag
+     * Checking whether sample have Online flag
      *
      * @param MagentoLinkInterface $link
      * @return bool
@@ -66,14 +69,14 @@ class Links extends BaseBlockLinks
     }
 
     /**
-     * TODO: описание...
+     * Get child player block if exist it
      *
      * @return VideoPlayer|null
      */
     private function getChildPlayerBlock(): ?VideoPlayer
     {
         if (!isset($this->videoPlayerBlock)) {
-            $block = $this->getChildBlock('player');
+            $block = $this->getChildBlock(self::PLAYER_BLOCK_ALIAS);
             $this->videoPlayerBlock = $block instanceof VideoPlayer ? $block : null;
         }
 
@@ -90,13 +93,13 @@ class Links extends BaseBlockLinks
     {
         /** @var LinkExtension|null $extension */
         $extension = $link->getExtensionAttributes();
-        if (!$extension) {
+        if (empty($extension)) {
             return null;
         }
 
         /** @var Link|null $qunity */
         $qunity = $extension->getQunity();
-        if (!$qunity) {
+        if (empty($qunity)) {
             return null;
         }
 
