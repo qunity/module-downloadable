@@ -3,6 +3,9 @@
 define(function () {
   'use strict';
 
+  /**
+   * Component-mixin of link type selection for downloadable product
+   */
   return function (UploadTypeHandler) {
     return UploadTypeHandler.extend({
       defaults: {
@@ -11,7 +14,7 @@ define(function () {
       },
 
       /**
-       * Change visibility for typeUrl/typeFile based on current value
+       * Change visibility for typeUrl / typeFile based on current value
        * @public
        *
        * @param {String} currentValue

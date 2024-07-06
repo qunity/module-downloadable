@@ -4,20 +4,18 @@ declare(strict_types=1);
 
 namespace Qunity\Downloadable\Block\Catalog\Product;
 
-use Magento\Downloadable\Api\Data\LinkExtension;
 use Magento\Downloadable\Api\Data\LinkInterface as MagentoLinkInterface;
 use Magento\Downloadable\Block\Catalog\Product\Links as BaseBlockLinks;
 use Qunity\Downloadable\Api\Data\LinkInterface as QunityLinkInterface;
-use Qunity\Downloadable\Model\Data\Link;
 use Qunity\Video\Api\Data\VideoPlayer\ConfigInterface;
 use Qunity\Video\Block\VideoPlayer;
 
 class Links extends BaseBlockLinks
 {
-    private const PLAYER_BLOCK_ALIAS = 'player';
+    private const VIDEO_PLAYER_BLOCK_ALIAS = 'player';
 
     /**
-     * Video player block if it's added to child blocks
+     * Video Player block if it's added to child blocks
      * @var VideoPlayer|null
      */
     private ?VideoPlayer $videoPlayerBlock;
@@ -35,12 +33,19 @@ class Links extends BaseBlockLinks
             return null;
         }
 
-        // TODO: fix a condition for displaying purchased products
-        $data = [ // TODO: вытащить в сервис, в какой-нибудь модуль, типо Qunity_Sales или Qunity_Customer
-            ConfigInterface::LINK_URL => $link->getSampleUrl(), // TODO: разделять по принципу "купил" / "не купил"
-            'product_id' => $this->getProduct()->getId(),
-            'link_id' => $link->getId(),
-            'title' => $link->getTitle(),
+        /**
+         * TODO:
+         *  - fix a condition for displaying purchased products
+         *  - pull it into the service, into some module, for example Qunity_Sales or Qunity_Customer
+         *  - divide according to the principle “bought” / “not bought”
+         */
+        $data = [
+            ConfigInterface::TITLE => $link->getTitle(),
+            ConfigInterface::LINK_URL => $link->getSampleUrl(),
+            'context' => [
+                'product_id' => $this->getProduct()->getId(),
+                'link_id' => $link->getId(),
+            ],
         ];
 
         return $videoPlayer->update($data);
@@ -69,14 +74,14 @@ class Links extends BaseBlockLinks
     }
 
     /**
-     * Get child player block if exist it
+     * Get child Video Player block if exist it in child blocks
      *
      * @return VideoPlayer|null
      */
     private function getChildPlayerBlock(): ?VideoPlayer
     {
         if (!isset($this->videoPlayerBlock)) {
-            $block = $this->getChildBlock(self::PLAYER_BLOCK_ALIAS);
+            $block = $this->getChildBlock(self::VIDEO_PLAYER_BLOCK_ALIAS);
             $this->videoPlayerBlock = $block instanceof VideoPlayer ? $block : null;
         }
 
@@ -91,18 +96,7 @@ class Links extends BaseBlockLinks
      */
     private function getQunityLink(MagentoLinkInterface $link): ?QunityLinkInterface
     {
-        /** @var LinkExtension|null $extension */
-        $extension = $link->getExtensionAttributes();
-        if (empty($extension)) {
-            return null;
-        }
-
-        /** @var Link|null $qunity */
-        $qunity = $extension->getQunity();
-        if (empty($qunity)) {
-            return null;
-        }
-
-        return $qunity;
+        /** @noinspection PhpUndefinedMethodInspection */
+        return $link->getExtensionAttributes()?->getQunity();
     }
 }

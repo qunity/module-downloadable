@@ -9,12 +9,10 @@ declare(strict_types=1);
 
 namespace Qunity\Downloadable\Plugin\Magento\Downloadable\Model\LinkRepository;
 
-use Magento\Downloadable\Api\Data\LinkExtension;
 use Magento\Downloadable\Api\Data\LinkInterface;
 use Magento\Downloadable\Model\LinkRepository as Target;
 use Qunity\Downloadable\Api\Service\Link\DeleteLinkInterface;
 use Qunity\Downloadable\Api\Service\Link\SaveLinkInterface;
-use Qunity\Downloadable\Model\Data\Link;
 
 class SaveExtensionAttributes
 {
@@ -42,14 +40,8 @@ class SaveExtensionAttributes
      */
     public function afterSave(Target $subject, int $linkId, string $sku, LinkInterface $link): int
     {
-        /** @var LinkExtension|null $extension */
-        $extension = $link->getExtensionAttributes();
-        if (empty($extension)) {
-            return $linkId;
-        }
-
-        /** @var Link|null $qunity */
-        $qunity = $extension->getQunity();
+        /** @noinspection PhpUndefinedMethodInspection */
+        $qunity = $link->getExtensionAttributes()?->getQunity();
         if (empty($qunity)) {
             $this->deleteLink->execute($linkId);
 

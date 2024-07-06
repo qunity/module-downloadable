@@ -7,12 +7,10 @@ namespace Qunity\Downloadable\Ui\DataProvider\Product\Form\Modifier;
 use Magento\Catalog\Model\Locator\LocatorInterface;
 use Magento\Catalog\Model\Product;
 use Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\AbstractModifier;
-use Magento\Downloadable\Api\Data\LinkExtension;
 use Magento\Downloadable\Api\Data\LinkInterface;
 use Magento\Downloadable\Model\Product\Type;
 use Magento\Framework\Stdlib\ArrayManager;
 use Magento\Ui\Component\Form;
-use Qunity\Downloadable\Model\Data\Link;
 
 class Links extends AbstractModifier
 {
@@ -21,12 +19,12 @@ class Links extends AbstractModifier
     private const INPUT_VIDEO_URL_ELEMENT_COMPONENT = 'Qunity_Downloadable/js/form/element/input-video-url';
 
     /**
-     * @param LocatorInterface $locator
      * @param ArrayManager $arrayManager
+     * @param LocatorInterface $locator
      */
     public function __construct(
-        private readonly LocatorInterface $locator,
-        private readonly ArrayManager $arrayManager
+        private readonly ArrayManager $arrayManager,
+        private readonly LocatorInterface $locator
     ) {
         // ...
     }
@@ -77,14 +75,8 @@ class Links extends AbstractModifier
                 continue;
             }
 
-            /** @var LinkExtension|null $extension */
-            $extension = $productLinks[$linkId]->getExtensionAttributes();
-            if (empty($extension)) {
-                continue;
-            }
-
-            /** @var Link|null $qunity */
-            $qunity = $extension->getQunity();
+            /** @noinspection PhpUndefinedMethodInspection */
+            $qunity = $productLinks[$linkId]->getExtensionAttributes()?->getQunity();
             if (empty($qunity)) {
                 continue;
             }
@@ -112,35 +104,17 @@ class Links extends AbstractModifier
             $getPath(['record', 'children']),
         ]);
 
-        $containerFile['children'] = [
-            self::IS_ONLINE_LINK_KEY => $this->getOnlineFlag(self::IS_ONLINE_LINK_KEY),
-            'type' => ['arguments' => ['data' => ['config' => [
-                'isOnline' => self::IS_ONLINE_LINK_KEY,
-            ]]]],
-            'link_url' => ['arguments' => ['data' => ['config' => [
-                'component' => self::INPUT_VIDEO_URL_ELEMENT_COMPONENT,
-                'videoValidation' => [
-                    'validate-youtube-url' => [self::IS_ONLINE_LINK_KEY => '1'],
-                    'validate-youtube-video-metadata' => [self::IS_ONLINE_LINK_KEY => '1'],
-                ],
-                'validation' => ['no-whitespace' => true],
-            ]]]],
-        ];
+        $containerFile['children'] = $this->getContainerChildren(
+            self::IS_ONLINE_LINK_KEY,
+            'type',
+            'link_url'
+        );
 
-        $containerSample['children'] = [
-            self::IS_ONLINE_SAMPLE_KEY => $this->getOnlineFlag(self::IS_ONLINE_SAMPLE_KEY),
-            'sample_type' => ['arguments' => ['data' => ['config' => [
-                'isOnline' => self::IS_ONLINE_SAMPLE_KEY,
-            ]]]],
-            'sample_url' => ['arguments' => ['data' => ['config' => [
-                'component' => self::INPUT_VIDEO_URL_ELEMENT_COMPONENT,
-                'videoValidation' => [
-                    'validate-youtube-url' => [self::IS_ONLINE_SAMPLE_KEY => '1'],
-                    'validate-youtube-video-metadata' => [self::IS_ONLINE_SAMPLE_KEY => '1'],
-                ],
-                'validation' => ['no-whitespace' => true],
-            ]]]],
-        ];
+        $containerSample['children'] = $this->getContainerChildren(
+            self::IS_ONLINE_SAMPLE_KEY,
+            'sample_type',
+            'sample_url'
+        );
 
         $meta = $this->arrayManager->merge($path, $meta, [
             'container_file' => $containerFile,
@@ -149,22 +123,39 @@ class Links extends AbstractModifier
     }
 
     /**
-     * Get configuration of Online flag
+     * Get elements configuration for cooperation with Online flag
      *
-     * @param string $dataScope
+     * @param string $onlineFlagElement
+     * @param string $typeElement
+     * @param string $urlElement
+     *
      * @return array
      */
-    private function getOnlineFlag(string $dataScope): array
-    {
-        $result['arguments']['data']['config'] = [
-            'formElement' => Form\Element\Checkbox::NAME,
-            'componentType' => Form\Field::NAME,
-            'dataType' => Form\Element\DataType\Number::NAME,
-            'dataScope' => $dataScope,
-            'description' => __('Online'),
-            'valueMap' => ['false' => '0', 'true' => '1'],
+    private function getContainerChildren(
+        string $onlineFlagElement,
+        string $typeElement,
+        string $urlElement
+    ): array {
+        return [
+            $onlineFlagElement => ['arguments' => ['data' => ['config' => [
+                'formElement' => Form\Element\Checkbox::NAME,
+                'componentType' => Form\Field::NAME,
+                'dataType' => Form\Element\DataType\Number::NAME,
+                'dataScope' => $onlineFlagElement,
+                'description' => __('Online'),
+                'valueMap' => ['false' => '0', 'true' => '1'],
+            ]]]],
+            $typeElement => ['arguments' => ['data' => ['config' => [
+                'isOnline' => $onlineFlagElement,
+            ]]]],
+            $urlElement => ['arguments' => ['data' => ['config' => [
+                'component' => self::INPUT_VIDEO_URL_ELEMENT_COMPONENT,
+                'videoValidation' => [
+                    'validate-youtube-url' => [$onlineFlagElement => '1'],
+                    'validate-youtube-video-metadata' => [$onlineFlagElement => '1'],
+                ],
+                'validation' => ['no-whitespace' => true],
+            ]]]],
         ];
-
-        return $result;
     }
 }

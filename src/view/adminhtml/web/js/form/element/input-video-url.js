@@ -6,6 +6,9 @@ define([
 ], function (uiRegistry, uiAbstract) {
   'use strict';
 
+  /**
+   * Input element for links with additional video functionality
+   */
   return uiAbstract.extend({
     defaults: {
       filterComponents: 'ns = ${ $.ns }, parentName = ${ $.parentName }'
@@ -38,10 +41,10 @@ define([
     },
 
     /**
-     * Validates itself by it is validation rules using validator object
+     * Validates itself by its validation rules using validator object
      * @public
      *
-     * @returns {Object} Validate information
+     * @return {Object} Validate information
      */
     validate: function () {
       this._processVideoValidation((uiComponent, validationName, verifyValue) =>
