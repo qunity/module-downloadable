@@ -14,7 +14,7 @@ define(function () {
       },
 
       /**
-       * Change visibility for typeUrl / typeFile based on current value
+       * Change visibility for typeUrl/typeFile based on current value
        * @public
        *
        * @param {String} currentValue
