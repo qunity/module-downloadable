@@ -2,9 +2,9 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Qunity\Downloadable\Api\Data\LinkInterface" type="Qunity\Downloadable\Model\Data\Link"/>
-    <preference for="Qunity\Downloadable\Api\Service\Link\SaveLinkInterface"
+    <preference for="Qunity\Downloadable\Api\Service\SaveLinkInterface"
                 type="Qunity\Downloadable\Model\ResourceModel\SaveLink"/>
-    <preference for="Qunity\Downloadable\Api\Service\Link\DeleteLinkInterface"
+    <preference for="Qunity\Downloadable\Api\Service\DeleteLinkInterface"
                 type="Qunity\Downloadable\Model\ResourceModel\DeleteLink"/>
     <type name="Magento\Downloadable\Api\LinkRepositoryInterface">
         <plugin name="Qunity_Downloadable::link_repository.clear_url_links"

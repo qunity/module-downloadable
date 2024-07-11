@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Qunity\Downloadable\Api\Service\Link;
+namespace Qunity\Downloadable\Api\Service;
 
 interface DeleteLinkInterface
 {

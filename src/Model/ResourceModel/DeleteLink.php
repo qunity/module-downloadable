@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Qunity\Downloadable\Model\ResourceModel;
 
 use Qunity\Downloadable\Api\Data\LinkInterface;
-use Qunity\Downloadable\Api\Service\Link\DeleteLinkInterface;
+use Qunity\Downloadable\Api\Service\DeleteLinkInterface;
 
 class DeleteLink extends AbstractLink implements DeleteLinkInterface
 {

@@ -11,8 +11,8 @@ namespace Qunity\Downloadable\Plugin\Magento\Downloadable\Model\LinkRepository;
 
 use Magento\Downloadable\Api\Data\LinkInterface;
 use Magento\Downloadable\Model\LinkRepository as Target;
-use Qunity\Downloadable\Api\Service\Link\DeleteLinkInterface;
-use Qunity\Downloadable\Api\Service\Link\SaveLinkInterface;
+use Qunity\Downloadable\Api\Service\DeleteLinkInterface;
+use Qunity\Downloadable\Api\Service\SaveLinkInterface;
 
 class SaveExtensionAttributes
 {

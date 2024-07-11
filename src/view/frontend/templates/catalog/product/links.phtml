@@ -54,7 +54,7 @@
                             <?= /* @noEscape */ $block->getLinkPrice($link) ?>
                         <?php endif; ?>
                     </label>
-                    <?php if ($block->isOnlineSample($link)): ?>
+                    <?php if ($block->isOnlineLink($link) || $block->isOnlineSample($link)): ?>
                         <?= /* @noEscape */ $block->getVideoPlayerBlock($link)?->toHtml() ?>
                     <?php endif; ?>
                 </div>

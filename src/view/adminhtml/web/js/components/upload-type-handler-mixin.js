@@ -1,5 +1,3 @@
-// noinspection JSUnresolvedReference,JSUnusedGlobalSymbols
-
 define(function () {
   'use strict';
 
@@ -7,6 +5,8 @@ define(function () {
    * Component-mixin of link type selection for downloadable product
    */
   return function (UploadTypeHandler) {
+
+    // noinspection JSUnusedGlobalSymbols
     return UploadTypeHandler.extend({
       defaults: {
         isOnline: 'extension_attribute_qunity_is_online',
@@ -24,6 +24,8 @@ define(function () {
 
         /** @var {String} componentIsOnline */
         const componentIsOnline = `${this.filterComponents}, index=${this.isOnline}`;
+
+        // noinspection JSUnresolvedReference
         this.changeVisible(componentIsOnline, currentValue === 'url');
       }
     });

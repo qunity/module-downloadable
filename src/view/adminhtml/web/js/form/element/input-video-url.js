@@ -1,15 +1,14 @@
-// noinspection JSUnresolvedReference
-
 define([
-  'uiRegistry',
-  'Magento_Ui/js/form/element/abstract'
-], function (uiRegistry, uiAbstract) {
+  'Magento_Ui/js/form/element/abstract',
+  'uiRegistry'
+], function (Abstract, registry) {
   'use strict';
 
   /**
    * Input element for links with additional video functionality
    */
-  return uiAbstract.extend({
+  // noinspection JSUnresolvedReference
+  return Abstract.extend({
     defaults: {
       filterComponents: 'ns = ${ $.ns }, parentName = ${ $.parentName }'
     },
@@ -18,11 +17,11 @@ define([
      * Component initialization
      * @public
      *
-     * @return {uiComponent}
+     * @return {uiElement}
      */
     initialize: function () {
-      this._super();
-      this.initSubscriber();
+      this._super()
+        .initSubscriber();
 
       return this;
     },
@@ -31,11 +30,11 @@ define([
      * Initializes subscription properties
      * @public
      *
-     * @return {uiComponent}
+     * @return {uiElement}
      */
     initSubscriber: function () {
-      this._processVideoValidation(uiComponent =>
-        uiComponent.value.subscribe(this.validate.bind(this)));
+      this._processVideoValidation(component =>
+        component.value.subscribe(this.validate.bind(this)));
 
       return this;
     },
@@ -47,8 +46,8 @@ define([
      * @return {Object} Validate information
      */
     validate: function () {
-      this._processVideoValidation((uiComponent, validationName, verifyValue) =>
-        this._changeValidation(validationName, verifyValue, uiComponent.value()));
+      this._processVideoValidation((component, validationName, verifyValue) =>
+        this._changeValidation(validationName, verifyValue, component.value()));
 
       return this._super();
     },
@@ -65,8 +64,8 @@ define([
       Object.entries(this.videoValidation).forEach(([validationName, mapping]) =>
         Object.entries(mapping).forEach(([componentIndex, verifyValue]) =>
 
-          uiRegistry.get(`${this.filterComponents}, index=${componentIndex}`, uiComponent =>
-            callback(uiComponent, validationName, verifyValue))));
+          registry.get(`${this.filterComponents}, index=${componentIndex}`, component =>
+            callback(component, validationName, verifyValue))));
     },
 
     /**
@@ -74,8 +73,8 @@ define([
      * @private
      *
      * @param {String} validationName
-     * @param {*} verifyValue
-     * @param {*} checkValue
+     * @param {String|Number} verifyValue
+     * @param {String|Number} checkValue
      */
     _changeValidation: function (validationName, verifyValue, checkValue) {
       this.validation[validationName] = (verifyValue === checkValue);

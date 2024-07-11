@@ -7,8 +7,8 @@ namespace Qunity\Downloadable\Block\Catalog\Product;
 use Magento\Downloadable\Api\Data\LinkInterface as MagentoLinkInterface;
 use Magento\Downloadable\Block\Catalog\Product\Links as BaseBlockLinks;
 use Qunity\Downloadable\Api\Data\LinkInterface as QunityLinkInterface;
+use Qunity\Video\Api\BlockVideoPlayerInterface as VideoPlayerInterface;
 use Qunity\Video\Api\Data\VideoPlayer\ConfigInterface;
-use Qunity\Video\Block\VideoPlayer;
 
 class Links extends BaseBlockLinks
 {
@@ -16,17 +16,17 @@ class Links extends BaseBlockLinks
 
     /**
      * Video Player block if it's added to child blocks
-     * @var VideoPlayer|null
+     * @var VideoPlayerInterface|null
      */
-    private ?VideoPlayer $videoPlayerBlock;
+    private ?VideoPlayerInterface $videoPlayerBlock;
 
     /**
      * Get child Video Player block and configure it by link info
      *
      * @param MagentoLinkInterface $link
-     * @return VideoPlayer|null
+     * @return VideoPlayerInterface|null
      */
-    public function getVideoPlayerBlock(MagentoLinkInterface $link): ?VideoPlayer
+    public function getVideoPlayerBlock(MagentoLinkInterface $link): ?VideoPlayerInterface
     {
         $videoPlayer = $this->getChildPlayerBlock();
         if (empty($videoPlayer)) {
@@ -76,13 +76,13 @@ class Links extends BaseBlockLinks
     /**
      * Get child Video Player block if exist it in child blocks
      *
-     * @return VideoPlayer|null
+     * @return VideoPlayerInterface|null
      */
-    private function getChildPlayerBlock(): ?VideoPlayer
+    private function getChildPlayerBlock(): ?VideoPlayerInterface
     {
         if (!isset($this->videoPlayerBlock)) {
             $block = $this->getChildBlock(self::VIDEO_PLAYER_BLOCK_ALIAS);
-            $this->videoPlayerBlock = $block instanceof VideoPlayer ? $block : null;
+            $this->videoPlayerBlock = $block instanceof VideoPlayerInterface ? $block : null;
         }
 
         return $this->videoPlayerBlock;
